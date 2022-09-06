@@ -36,11 +36,10 @@ Shader "Unlit/WaveShader"
 			vertOut vert(vertIn v)
 			{
 				// Displace the original vertex in model space
-				float4 displacement = float4(0.0f, 0.0f, 0.0f, 0.0f);
-				v.vertex += displacement;
-
 				vertOut o;
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				float4 displacement = float4(0.0f, 1.0f*sin(o.vertex.x + (_Time.y * _Time.y)), 0.0f, 0.0f);
+				o.vertex += displacement;
 				o.uv = v.uv;
 				return o;
 			}
